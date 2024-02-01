@@ -138,6 +138,7 @@
   initGrid()
 }());
 
+
 /**
  * 内容初始化
  * @return {[type]} [description]
@@ -148,7 +149,7 @@ function contentInit(content) {
       htmlArr.push('<div class="grid-item">')
       htmlArr.push('<a class="a-img" href="'+content[i].demo_link+'">')
       if(content[i].img_link) {
-        htmlArr.push('<img src="'+content[i].img_link+'">')
+        htmlArr.push('<img src="'+content[i].img_link+'" style="width: 100%">')
       }
       htmlArr.push('</a>')
       htmlArr.push('<h3 class="demo-title">')
@@ -159,7 +160,7 @@ function contentInit(content) {
       }
       htmlArr.push('<p>'+content[i].description)
       if (content[i].code_link) {
-        htmlArr.push('<a href="'+content[i].code_link+'">Source code <i class="fa fa-code" aria-hidden="true"></i></a>')
+        htmlArr.push('<a href="'+content[i].code_link+'"> Source code <i class="fa fa-code" aria-hidden="true"></i></a>')
       }
       htmlArr.push('</p>')
       htmlArr.push('</div>')
