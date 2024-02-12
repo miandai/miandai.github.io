@@ -2,7 +2,7 @@
 layout: post
 keywords: Transformer
 description: Transformer
-title: "Transformer 知识点 Q&A"
+title: "Transformer Q&A"
 categories: [Transformer]
 tags: [Transformer]
 ---
