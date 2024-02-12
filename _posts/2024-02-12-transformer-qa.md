@@ -16,6 +16,9 @@ Q: Embedding层包含哪些参数？
 
 A: 这部分参数包括输入和输出的 token embeddings 以及 positional encodings。token embeddings将 tokens 映射到高维空间，而 positional encodings 则为模型提供序列中每个元素的位置信息。在大型模型中，由于词汇表的大小和序列长度的增加，这部分参数量会占据相当的比例。当然位置编码不一定增加参数量，要看是固定函数生成还是训练得到的参数。
 
+
+
+
 ## Multi-Head Attention
 
 Q: 自注意力都有哪些参数？
