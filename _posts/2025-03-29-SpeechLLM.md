@@ -100,7 +100,9 @@ Mimi 使用纯对抗训练配置，其主要特点包括：
 RQ-Transformer 是用于处理长序列数据的分层 Transformer 架构，由两个子 Transformer 组成：
 - Temporal Transformer（大模型，32 layers）：处理时间维度上的依赖关系，将之前的所有子序列映射到一个时间上下文向量。如上图，即是将 s-1 步的所有子序列 embedding 相加形成融合 embedding，输入 Temporal Transformer 输出一个时间上下文向量，供第 s 步的各子序列生成。
 - Depth Transformer（小模型，6 layers）：处理子序列维度上的依赖关系，基于时间上下文向量和之前的子序列预测当前子序列的下一个标记。如上图，即根据 s-1 步给出的上下文信息，结合 s 步前 k 个子序列向量，预测 s 步第 k+1 个子序列向量。
+
 #### Multi-stream
+
 Multi-stream 功能充分利用了 RQ-Transformer 的通用架构特性来实现多流处理。
 <center>
 <img src="/image/SpeechLLM/Moshi 的联合序列建模.png" alt="Moshi 的联合序列建模" width="70%" />
@@ -297,7 +299,9 @@ MiniCPM-o 2.6 是由面壁智能于2025年1月16日发布的多模态大模型�
 ## Step-Audio
 
 Step-Audio 是由阶跃星辰团队于 2025年2月18日推出的号称业内首款产品级的开源语音交互模型。
+
 ### 模型架构
+
 <center>
 <img src="/image/SpeechLLM/Step-Audio 模型架构.png" alt="Step-Audio 模型架构" width="100%" />
 </center>
