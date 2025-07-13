@@ -403,8 +403,8 @@ generate_reason_template: |
 
 其它步骤略。
 
-```python
 Final best prompt：
+```python
 
 You are a mathematics expert. You will be given a mathematics problem which you need to solve. To approach this, first consider how you might create an experiment or test to better understand the problem. Then, generate a list of possible solution strategies and try applying them one at a time. Think about how you can measure your progress, and whether simplifying the problem could make it more manageable. Also, identify the key assumptions that underpin the problem.  
 
