@@ -1,18 +1,18 @@
 ---
 layout: post
 keywords: blog
-description: 本文不是 PromptWizard 代码解读，而是来看 Prompt 是如何通过 meta prompt 来一步步优化的。至于进化机制原理，大家都懂，不必啰嗦，重要的是 meta prompt。
+description: 本文不是 PromptWizard 代码解读，而是来看 Prompt 是如何通过 meta prompt 一步步优化的。至于进化机制原理，大家都懂，不必啰嗦，重要的是 meta prompt。
 title: "Automatic Prompt Optimization-PromptWizard"
 categories: [LLM]
 tags: [LLM]
-excerpt: 本文不是 PromptWizard 代码解读，而是来看 Prompt 是如何通过 meta prompt 来一步步优化的。至于进化机制原理，大家都懂，不必啰嗦，重要的是 meta prompt。
+excerpt: 本文不是 PromptWizard 代码解读，而是来看 Prompt 是如何通过 meta prompt 一步步优化的。至于进化机制原理，大家都懂，不必啰嗦，重要的是 meta prompt。
 location: 北京
 author: 增益
 ---
 
 # 简介
 
-本文不是 PromptWizard 代码解读，而是来看 Prompt 是如何通过 meta prompt 来一步步优化的。至于进化机制原理，大家都懂，不必啰嗦，重点关注 meta prompt。
+本文不是 PromptWizard 代码解读，而是来看 Prompt 是如何通过 meta prompt 一步步优化的。至于进化机制原理，大家都懂，不必啰嗦，重点关注 meta prompt。
 
 
 
