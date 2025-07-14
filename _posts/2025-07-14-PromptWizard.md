@@ -20,15 +20,17 @@ author: 增益
 # 框架
 
 <center>
-<img src="https://github.com/microsoft/PromptWizard/blob/main/images/overview.png" alt="PromptWizard" width="70%"/>
+<img src="/image/PromptWizard/PromptWizard.png" alt="PromptWizard" width="100%" />
 </center>
+
 
 # 算法流程
 
 ## Init
+
 初始 Prompt:
 
-```python
+```
 task_description = You are a mathematics expert. You will be given a mathematics problem which you need to solve
 
 base_instruction = Lets think step by step.
@@ -40,20 +42,21 @@ init_prompt = task_description + "\n" + base_instruction
 
 system_prompt:
 
-```python
+```
 You are a helpful assistant developed by OpenAI that can efficiently perform tasks as per instruction
 ```
 
 参数配置：
 
-```python
+```
 Prompt Optimization parameters: [('answer_format', 'For each question present the reasoning followed by the correct answer.'), ('base_instruction', 'Lets think step by step.'), ('few_shot_count', 5), ('generate_expert_identity', True), ('generate_intent_keywords', False), ('generate_reasoning', True), ('max_eval_batches', 6), ('min_correct_count', 3), ('mutate_refine_iterations', 3), ('mutation_rounds', 2), ('num_train_examples', 20), ('prompt_technique_name', 'critique_n_refine'), ('questions_batch_size', 1), ('refine_instruction', True), ('refine_task_eg_iterations', 3), ('seen_set_size', 20), ('style_variation', 5), ('task_description', 'You are a mathematics expert. You will be given a mathematics problem which you need to solve'), ('top_n', 1), ('unique_model_id', 'Qwen3-32B')] 
 ```
 
 ## Mutation
+
 对初始化 Prompt 进行变异，也是通过LLM，也需要 Prompt，这里被称为 meta prompt，模板如下：
 
-```python
+```
 You are given a task description and a prompt instruction and different styles known as meta prompts:
 [Task Description]: {task_description}
 [Meta Prompt]: {meta_prompts}
@@ -65,7 +68,7 @@ Make sure to wrap each generated prompt with <START> and <END>
 
 对占位符进行填充后即可输入 LLM：
 
-```python
+```
 You are given a task description and a prompt instruction and different styles known as meta prompts:
 [Task Description]: You are a mathematics expert. You will be given a mathematics problem which you need to solve
 [Meta Prompt]: How could I devise an experiment to help solve that problem?
@@ -81,7 +84,7 @@ Make sure to wrap each generated prompt with <START> and <END>
 
 LLM 输出：
 
-```python
+```
 <START>  
 Let's approach this problem by first brainstorming a list of potential strategies. For each strategy, we can test it on the problem to see if it leads to any meaningful progress. How can we measure whether we're making progress? Also, consider simplifying the problem to make it more manageable. What assumptions are we making about the problem?  
 <END>  
@@ -111,7 +114,7 @@ Let's work through this problem step by step. First, think about different ways 
 
 让LLM预测答案的 Prompt：
 
-```python
+```
 You are given a prompt instruction and the following {questions_batch_size} questions of the same task.
 [Instruction]: {instruction}
 
@@ -126,20 +129,22 @@ You are given a prompt instruction and the following {questions_batch_size} ques
 - questions_batch_size：这里为 1
 - answer_format：这里示例为：For each question present the reasoning followed by the correct answer.
 - questions：James writes a 3-page letter to 2 different friends twice a week. How many pages does he write a year?', 'answer': 'He writes each friend 3*2=<<3*2=6>>6 pages a week\nSo he writes 6*2=<<6*2=12>>12 pages every week\nThat means he writes 12*52=<<12*52=624>>624 pages a year\n#### 624
+
 ## Selection
 
 选择准确率最高的变异 Prompt（或instruction）。
 
-```python
+```
 Sorted top n prompts:  [["  \nTo solve this problem, let's break it down into smaller parts. First, think about how we could design an experiment or test to explore the problem further. Then, consider different methods for solving it and apply them step by step. How can we track our progress? What simplifications might help? What are the key assumptions we're relying on?  \n", 1.0, [{'question': 'Jasper will serve charcuterie at his dinner party. He buys 2 pounds of cheddar cheese for $10, a pound of cream cheese that cost half the price of the cheddar cheese, and a pack of cold cuts that cost twice the price of the cheddar cheese. How much does he spend on the ingredients?', 'answer': 'A pound of cream cheese cost $10 / 2 = $<<10/2=5>>5.\nA pack of cold cuts cost $10 x 2 = $<<10*2=20>>20.\nJasper spent $10 + $5 + $20 = $<<10+5+20=35>>35 on the ingredients.\n#### 35', 'final_answer': '35'}]]]
 ```
 
 ## Critique & Refine
+
 如果准确率一经足够高了，则再做下强化。
 
 Prompt to get critique:
 
-```python
+```
 I'm trying to write a prompt for zero-shot instruction task that will help the most capable and suitable agent to solve the task.
 My current prompt is:
 [CURRENT PROMPT] "  
@@ -159,7 +164,7 @@ accordingly provide suggestions to further improve the prompt and make it better
 
 critique received from LLM:
 
-```python
+```
 Your current prompt is a strong starting point for a **zero-shot instruction task**, as it encourages **structured reasoning**, **problem decomposition**, and **critical thinking**. However, to make it even more effective for a wide range of tasks (especially math, logic, and real-world reasoning), we can refine it to be more **explicit**, **action-oriented**, and **aligned with the reasoning patterns** seen in the correct example.
 
 ---
@@ -244,7 +249,7 @@ Let me know if you'd like a version of the prompt tailored to a specific domain 
 
 Prompt to get Refinement after critique, from LLM:
 
-```python
+```
 I'm trying to write a zero-shot instruction that will help the most capable and suitable agent to solve the task.
 My current prompt is: "  
 To solve this problem, let's break it down into smaller parts. First, think about how we could design an experiment or test to explore the problem further. Then, consider different methods for solving it and apply them step by step. How can we track our progress? What simplifications might help? What are the key assumptions we're relying on?  
@@ -344,25 +349,25 @@ Each prompt should be wrapped with <START> and <END>.
 
 Refined prompts received from LLM:
 
-```python
+```
 To solve this problem, begin by identifying the key numbers, relationships, and context in the question. Break the problem into smaller, manageable parts and solve each part step by step. Clearly show your calculations and reasoning for each step. Use the real-world context to guide your interpretation where necessary. Finally, combine your results to determine the final answer. Make sure to explain your process and any assumptions you make along the way.  
 ```
 
 得到 refined_prompts：
 
-```python
+```
 ['  \nTo solve this problem, begin by identifying the key numbers, relationships, and context in the question. Break the problem into smaller, manageable parts and solve each part step by step. Clearly show your calculations and reasoning for each step. Use the real-world context to guide your interpretation where necessary. Finally, combine your results to determine the final answer. Make sure to explain your process and any assumptions you make along the way.  \n']
 ```
 
 重复打分：
 
-```python
+```
 rompt_score_list [['  \nTo solve this problem, begin by identifying the key numbers, relationships, and context in the question. Break the problem into smaller, manageable parts and solve each part step by step. Clearly show your calculations and reasoning for each step. Use the real-world context to guide your interpretation where necessary. Finally, combine your results to determine the final answer. Make sure to explain your process and any assumptions you make along the way.  \n', 0.5, [{'question': 'Joy can read 8 pages of a book in 20 minutes. How many hours will it take her to read 120 pages?', 'answer': 'In one hour, there are 3 sets of 20 minutes.\nSo, Joy can read 8 x 3 = <<8*3=24>>24 pages in an hour.\nIt will take her 120/24 = <<120/24=5>>5 hours to read 120 pages.\n#### 5', 'final_answer': '5'}]]]
 ```
 
 Sorted top n prompts:
 
-```python
+```
 [["  \nTo solve this problem, let's break it down into smaller parts. First, think about how we could design an experiment or test to explore the problem further. Then, consider different methods for solving it and apply them step by step. How can we track our progress? What simplifications might help? What are the key assumptions we're relying on?  \n", 1.0, [{'question': 'Jasper will serve charcuterie at his dinner party. He buys 2 pounds of cheddar cheese for $10, a pound of cream cheese that cost half the price of the cheddar cheese, and a pack of cold cuts that cost twice the price of the cheddar cheese. How much does he spend on the ingredients?', 'answer': 'A pound of cream cheese cost $10 / 2 = $<<10/2=5>>5.\nA pack of cold cuts cost $10 x 2 = $<<10*2=20>>20.\nJasper spent $10 + $5 + $20 = $<<10+5+20=35>>35 on the ingredients.\n#### 35', 'final_answer': '35'}]]]
 ```
 
@@ -370,7 +375,7 @@ Sorted top n prompts:
 
 生成 final_prompt 之前，加上之前预测错误的问答作为 few shot示例，并在示例中加上推理。
 
-```python
+```
 final_prompt: |
   {instruction}
   {few_shot_examples}
@@ -380,7 +385,7 @@ final_prompt: |
 
 加推理的 Prompt 如下：
 
-```python
+```
 generate_reason_template: |
   You are given a task description and instruction followed by a set of correct examples of the task.
   
@@ -404,7 +409,7 @@ generate_reason_template: |
 其它步骤略。
 
 Final best prompt：
-```python
+```
 
 You are a mathematics expert. You will be given a mathematics problem which you need to solve. To approach this, first consider how you might create an experiment or test to better understand the problem. Then, generate a list of possible solution strategies and try applying them one at a time. Think about how you can measure your progress, and whether simplifying the problem could make it more manageable. Also, identify the key assumptions that underpin the problem.  
 
