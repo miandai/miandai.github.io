@@ -760,5 +760,5 @@ Pay special attention to providing the correct indexes!!
 
 # 参考资料
 
-- https://github.com/plurai-ai/intellagent/
-- IntellAgent: Uncover Your Agent's Blind Spots
+- [https://github.com/plurai-ai/intellagent](https://github.com/plurai-ai/intellagent)
+- [https://intellagent-doc.plurai.ai/How_it_Works/how-it-works/](https://intellagent-doc.plurai.ai/How_it_Works/how-it-works/)
