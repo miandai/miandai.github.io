@@ -13,7 +13,7 @@ author: 增益
 
 # 简介
 
-IntellAgent 是一个多智能体框架，专门用于评估和优化对话式AI系统。
+[IntellAgent](https://github.com/plurai-ai/intellagent) 是一个多智能体框架，专门用于评估和优化对话式AI系统。
 
 
 
@@ -34,7 +34,8 @@ IntellAgent 的架构包含三个主要组件，形成完整的处理流水线�
 
 # 工作流程
 
-系统通过以下步骤处理输入 ：
+系统通过以下步骤处理输入：
+
 1. 将用户提示分解为策略图
 2. 基于真实对话分布中的并发性采样策略子集
 3. 生成用户-聊天机器人交互场景（包括系统数据库）
@@ -47,10 +48,10 @@ IntellAgent 的架构包含三个主要组件，形成完整的处理流水线�
 python run.py --output_path results/airline --config_path ./config/config_airline.yml
 ```
 
-airline 的 prompt 为：
+airline 的 [prompt](https://github.com/plurai-ai/intellagent/blob/main/examples/airline/input/wiki.md) 为：
 
 ```
-### Airline Agent Policy
+# Airline Agent Policy
 
 The current time is 2024-05-15 15:00:00 EST.
 
@@ -121,7 +122,8 @@ As an airline agent, you can help users book, modify, or cancel flight reservati
 ```
 
 生成 task_description：
-task_extraction
+
+[task_extraction](https://smith.langchain.com/hub/eladlev/task_extraction)
 
 ```
 SYSTEM
@@ -141,7 +143,7 @@ The prompt:
 
 获取 llm_description：
 
-description_generation
+[description_generation](https://smith.langchain.com/hub/eladlev/description_generation)
 
 ```
 SYSTEM
@@ -169,7 +171,8 @@ The resulting flow should try to tackle the maximum number of policies. However,
 
 
 如果需要do_refinement：
-description_refinement
+
+[description_refinement](https://smith.langchain.com/hub/eladlev/description_refinement)
 
 ```
 SYSTEM
@@ -198,8 +201,8 @@ HUMAN
 Read carefully the system prompt and pay attention to all policies!!
 ```
 
+[refined_description2](https://smith.langchain.com/hub/eladlev/refined_description2)
 
-refined_description2
 
 ```
 SYSTEM
@@ -224,9 +227,12 @@ Refined expected behaviour:
 ```
 
 
-2. Flow and Policies Generation
+## 2. Flow and Policies Generation
+
 Step 1: Breaking prompt to flows
-flows_extraction
+
+
+[flows_extraction](https://smith.langchain.com/hub/eladlev/flows_extraction)
 
 ```
 SYSTEM
@@ -251,7 +257,8 @@ HUMAN
 上面的 {user_prompt} 即填充为 airline 的 prompt。
 
 Step 2: Breaking each flow to policies
-policies_extraction
+
+[policies_extraction](https://smith.langchain.com/hub/eladlev/policies_extraction)
 
 ```
 SYSTEM
@@ -318,7 +325,9 @@ The policy **must** be self-contained with the full relevant context. For exampl
 ```
 
 Step 3: Building the relations graph
-policies_graph
+
+[policies_graph](https://smith.langchain.com/hub/eladlev/policies_graph)
+
 
 ```
 SYSTEM
@@ -340,8 +349,10 @@ Policy 2:
 ```
 
 
-3. Policies Graph Generation
-filter_restrictions
+## 3. Policies Graph Generation
+
+[filter_restrictions](https://smith.langchain.com/hub/eladlev/filter_restrictions)
+
 
 ```
 SYSTEM
@@ -371,7 +382,8 @@ Pay attention to providing only variables that were defined. **Do not change** t
 ```
 
 
-event_final
+[event_final](https://smith.langchain.com/hub/eladlev/event_final)
+
 
 ```
 SYSTEM
@@ -400,8 +412,8 @@ HUMAN
 ```
 
 
+[event_executor](https://smith.langchain.com/hub/eladlev/event_executor)
 
-event_executor
 
 ```
 SYSTEM
@@ -457,8 +469,9 @@ Remember:
 You must complete your task and **insert** the requested row to the database before providing any response!!! if there is any information that is not provided as part of the restrictions, you can generate any reasonable value.
 ```
 
-4. Dataset Event Generation
-event_symbolic
+## 4. Dataset Event Generation
+
+[event_symbolic](https://smith.langchain.com/hub/eladlev/event_symbolic)
 
 ```
 SYSTEM
@@ -526,8 +539,8 @@ Pay attention to including **all** the relevant rows as symbols even implicit on
 Do not include variables that should be created during the interaction! For example, if the user wants to book a reservation, you should not include a row for this reservation, only for the items that the user would like to book!!
 ```
 
+[symbolic_prompt_constraints](https://smith.langchain.com/hub/eladlev/symbolic_prompt_constraints)
 
-symbolic_prompt_constraints
 
 ```
 SYSTEM
@@ -572,18 +585,25 @@ HUMAN
 ```
 
 
-5. Dialog Simulation
+## 5. Dialog Simulation
+
 模拟用户与聊天机器人交互的详细代码主要在 Dialog 类中实现，这个类构建了一个基于 LangGraph 的状态图，管理三个智能体之间的对话流程：
-User Agent - 模拟用户行为
-Chatbot Agent - 代表被测试的聊天机器人
-Critique Agent - 评估对话是否符合策略要求
+
+- User Agent - 模拟用户行为
+- Chatbot Agent - 代表被测试的聊天机器人
+- Critique Agent - 评估对话是否符合策略要求
+
 其中User Agent 会：
-接收对话历史和场景信息
-生成用户回应和思考过程
-决定是否发送停止信号（###STOP）
-将思考过程和对话记录存储到内存中
+
+- 接收对话历史和场景信息
+- 生成用户回应和思考过程
+- 决定是否发送停止信号（###STOP）
+- 将思考过程和对话记录存储到内存中
+
+
 User Agent 的 Prompt：
-user_sim
+
+[user_sim](https://smith.langchain.com/hub/eladlev/user_sim)
 
 ```
 SYSTEM
@@ -647,7 +667,9 @@ Critique Agent 会：
 - 提供反馈决定对话是否真正结束
 
 Critique Agent 的 Prompt：
-end_critique
+
+[end_critique](https://smith.langchain.com/hub/eladlev/end_critique)
+
 
 ```
 SYSTEM
@@ -694,9 +716,12 @@ Critique Guidelines:
 - 如果停止，评估智能体验证停止原因
 - 根据评估结果决定是否真正结束对话
 
-6. Dialog Critique System & Comprehensive Evaluation
+## 6. Dialog Critique System & Comprehensive Evaluation
+
 完成仿真后，系统会分析对话结果，评估聊天机器人的策略遵循情况：
-analysis_info
+
+[analysis_info](https://smith.langchain.com/hub/eladlev/analysis_info)
+
 
 ```
 SYSTEM
