@@ -23,7 +23,7 @@ author: 增益
 
 于是在一张 4090 上用 whisper-large-v3 把十几个音频逐个转成了文字，每个音频转写耗费近一个小时，十几个音频共多半天时间。
 
-```
+```python
 # export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libffi.so.7
 # export CUDA_VISIBLE_DEVICES=2,3,4,5,6,7
 
@@ -73,6 +73,7 @@ for root, dirs, files in os.walk(input_path):
 
 于是又写了个prompt，把文稿一个个丢给 Gemini 2.5 Pro 做整理，整理得非常好。最后把这些文字稿存到锤子便签上，阅读体验极佳。
 
+prompt：
 ```
 
 「
