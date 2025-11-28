@@ -48,9 +48,9 @@ Apple M2 是我工作用电脑，性能最好用得最多，这么高配置竟�
 
 搞定在阿里云服务器遇到的网络问题后，快看到成功希望了，最后报了个Request omniverse-launcher-linux.AppImage failed. Because NVIDIA has deprecated the Omniverse Launcher on October 1st, 2025. 安装包 omniverse-launcher-linux.AppImage 已从英伟达网站彻底消失，搜都搜不到，这被弃用也才刚过十天。
 
-折腾心累了。
-
 <center><img src="/image/issac_sim/omniverse.png"></center>
+
+折腾心累了。
 
 <center><img src="/image/issac_sim/install_error.jpg"></center>
 
