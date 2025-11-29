@@ -54,5 +54,5 @@ Apple M2 是我工作用电脑，性能最好用得最多，这么高配置竟�
 
 <center><img src="/image/issac_sim/omniverse.png"></center>
 
-等等吧，这玩意儿还得频繁更新。
+等等吧，这项目还得频繁更新。
 
